@@ -66,7 +66,7 @@ To check if everything works fine, I did a full test system. If your Twilio acco
 
 ```npm test```
 
-Download it by (https://www.#)
+Download it by [Release](https://github.com/KoffieMokDev/OTPBot/releases/tag/otp) (https://github.com/KoffieMokDev/OTPBot/releases/tag/otp)
 
 ![image](https://user-images.githubusercontent.com/45340378/103482419-1f1e6c80-4de1-11eb-929b-6f34ca28499a.png)
 
