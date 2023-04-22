@@ -1,45 +1,21 @@
 # SMSBotBypass 
-Bypass SMS verifications from Paypal, Instagram, Snapchat, Google, 3D Secure, and many others... using a Discord Bot or the private API.
+Bypass SMS verifications from Paypal, Instagram, Snapchat, Google, 3D Secure, and many others... using a python Bot or the private API.
 
 It's really simple. Imagine that your friend got a Snapchat account, you try to reset his password using the sms system : 
 - he's gonna receive the sms confirmation code.
 
-Then, you use the bot (```!call 33612345678 snapchat```). The bot is gonna call him, using the snapchat service, ask for the code received. If he send the code using the numpad, then your gonna receive the code and be able to reset the password. It's like an automatic system for SE. 
-
-# API
-
-The API requests availables & working :
-  - ```/call``` with POST DATA :
-    - ```to: theClientPhoneNumber```
-    - ```user: theUser```
-    - ```service: theUsedService```
-    - ```name: theNameOfTheUser```
-    - ```password: yourApiPassword```
+Then, you use the bot (```OTP call 33612345678 snapchat```). The bot is gonna call him, using the snapchat service, ask for the code received. If he send the code using the numpad, then your gonna receive the code and be able to reset the password. It's like an automatic system for SE. 
     
-  - ```/get``` with POST DATA :
-    - ```callSid: theCallSid```
-    - ```password: yourApiPassword```
-    
-  - ```/stream/service``` with GET DATA :
-    - ```service: theServiceNameYouWannaUse```
-    
-  - ```/voice/password``` with POST DATA :
-    - ```password: yourApiPassword```
-    - ```callSid: theCallSid```
-    - ```Digits: theDigitsEnteredByTheUSer``` (not required)
-    
-    
-# Bot Commands
+# cmds
 
 All the Admin commands :
-  - ```!user add @user``` : allow someone to use the bot & the calls
-  - ```!user delete @user``` : remove someone or an admin from the bot
-  - ```!user info @user``` : get infos from a user
-  - ```!user setadmin @user``` : set a user to admin
+  - ```OTP user add @user``` : allow someone to use the bot & the calls
+  - ```OTP delete @user``` : remove someone or an admin from the bot
+  - ```OTP info @user``` : get infos from a user
 
 All the Users commands :
-  - ```!secret yoursecretpassword @user``` : set a user to admin without been admin
-  - ```!call phonenumber service``` or for example ```!call 33612345678 paypal``` : call the phonenumber using the bot and get the sms code
+  - ```OTP secret yoursecretpassword @user```
+  - ```OTP call phonenumber service``` or for example ```OTP call 33612345678 paypal``` : call the phonenumber using the bot and get the sms code
 
 The differents call services supported :
   - ```Paypal```
@@ -56,36 +32,28 @@ The differents call services supported :
 
 # How it works ?
 
-1. When you do a ```!call 3312345678 paypal```, the Discord Bot sends a post request to our private api, who is gonna save the call into our sqlite DB and send the call to our twilio API.
-2. The Twilio API use our ```/status``` route to know what to do in the call, the status route returns **TwiML** code to Twilio.
-3. The ```/status``` route returns the self hosted service song using the ```/stream/service route```. 
+1. When you do a ```OTP call 3312345678 paypal```, the Python Bot sends a post request to our private api, who is gonna save the call into our sqlite DB and send the call to our twilio API.
+2. The Twilio API use our ```OTP status``` route to know what to do in the call, the status route returns **TwiML** code to Twilio.
+3. The ```OTP status``` route returns the self hosted service song using the ```/stream/service route```. 
 4. If the user enter the digit code using the numpad, the song stops, it thanks him for the code, and end the call.
-5. The ```/status``` route send the code to your discord channel using a **webhook**.
+5. The ```OTP status``` is **Status**.
 
 # Prerequisite
-- Node.js & NPM from the last version.
+- Python v3+ & NPM from the last version.
 - git installed (not necessarily)
-- Open ports
+- Open your ports
 - A twilio account
-- A discord account (if you use the bot)
+- Knowledge of Python
 
-# Install the API
-
-Download the API Files from the github
-
-```git clone https://github.com/Ross1337/SMSBotBypass.git```
-
-Go to our API folder
-
-```cd /SMSBotBypass/api/```
+# Install
 
 Install the dependencies
 
-```npm i```
+Start Install 
 
-Start the api, wait 15s, and then, stop it
+Start pot.py in cmd
 
-```npm start```
+```py bot.py```
 
 Modify the config.js file
   - Add your twilio AccountSid & AuthToken
@@ -98,45 +66,18 @@ To check if everything works fine, I did a full test system. If your Twilio acco
 
 ```npm test```
 
+Download it by (https://www.#)
+
 ![image](https://user-images.githubusercontent.com/45340378/103482419-1f1e6c80-4de1-11eb-929b-6f34ca28499a.png)
 
 Your private API now **works** !
 
 Be carefull, you also need to change the TTS Language, go to https://www.twilio.com/console/voice/twiml/text-to-speech and change the TTS Language from English to French with the Lea voice.
 
-# Install the Discord Bot
-
-Take your API Password from you config.js file in your api folder we are gonna use it
-
-```cd ../bots/discord```
-
-Modify the config.js file
-  - Add API Url & Api Password
-  - Your discord bot token
-  - Your actual IP to run the web server
-  - Change the secret password
-  
-Create two discord roles, one "Admin" with Administrator permissions, and the other one "Bot User" with any permission.
-
-Add the bot to the discord server
-
-Initialize the discord bot
-
-```npm i```
-
-You can now start the discord bot
-
-```node bot.js```
-
-You can get all the informations neeeded on discord doing ```!help```
-
-![image](https://user-images.githubusercontent.com/45340378/103483112-6d356f00-4de5-11eb-848d-0bb0b46fc75f.png)
-
 # Disclaimer
 
-This code is only a POC code, do not use it illegally. You could been arrested to use badly this code. Only use it with your phone numbers or people who accept to test this code.
+Do not use it illegally. You could been arrested to use badly this code. Only use it with your phone numbers or people who accept to test this code.
 
 # Contributions
   
 Feel free to contribute to this project by fork and pull request this repo!
-
